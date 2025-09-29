@@ -13,7 +13,7 @@ Physical-Computing-Project
 4. ออกแบบระบบที่ปลอดภัยและต่อยอดได้
 
 รายละเอียดของโครงการ
-- ชื่อโครงการ : Pet Feeder
+- ชื่อโครงการ : Pet Feeder Pro Max
 - ซอฟต์แวร์ที่ใช้: Arduino IDE , GitHub , Visual Studio Code
 
 # สมาชิกกลุ่ม
