@@ -1,4 +1,3 @@
-# Physical Computing Project 2025 - IT KMITL
 # Pet Feeder Pro Max
 Physical-Computing-Project
 - โครงงานนี้พัฒนาเครื่องให้อาหารสัตว์เลี้ยงอัตโนมัติด้วย ESP32 เชื่อมต่อ Wi-Fi ควบคุมการเปิด/ปิดผ่าน servo 
