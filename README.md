@@ -1,5 +1,5 @@
 # Physical Computing Project 2025 - IT KMITL
-# Physical-Computing-Project
+# Pet-Feeder Physical-Computing-Project
 
 # Overview
 
