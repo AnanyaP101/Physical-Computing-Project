@@ -10,8 +10,8 @@
 4. ออกแบบระบบที่ปลอดภัยและต่อยอดได้
 
 รายละเอียดของโครงการ
-ชื่อโครงการ : Pet Feeder
-ซอฟต์แวร์ที่ใช้: Arduino IDE , GitHub , Visual Studio Code
+- ชื่อโครงการ : Pet Feeder
+- ซอฟต์แวร์ที่ใช้: Arduino IDE , GitHub , Visual Studio Code
 
 # สมาชิกกลุ่ม
 
