@@ -1,7 +1,8 @@
 # Pet Feeder Pro Max
 โครงงาน Pet Feeder Pro Max เป็นเครื่องให้อาหารสัตว์อัตโนมัติที่สามารถควบคุมได้จากทุกที่ผ่านเว็บไซต์ โดยใช้บอร์ด Arduino UNO R4 wifi เชื่อมต่อ MQTT Cloud สำหรับรับ–ส่งคำสั่ง และจัดเก็บข้อมูลผ่าน Firebase Database อุปกรณ์มี Ultrasonic Sensor ตรวจจับการปรากฏตัวของสัตว์เลี้ยง พร้อมบันทึกเวลาและแจ้งเตือนบนเว็บ ผู้ใช้สามารถสั่งให้อาหารทันทีหรือตั้งเวลาได้ โดยการเปิด–ปิดอาหารควบคุมด้วย Servo Motor ระบบนี้ช่วยให้เจ้าของดูแลสัตว์เลี้ยงได้สะดวกและเป็นระบบมากขึ้น
 - Physical-Computing-Project
-- ![alt text](../asset/logo)
+
+![alt text](https://github.com/AnanyaP101/Physical-Computing-Project/tree/main/asset/logo.png)
 
 # Overview
 จุดประสงค์
