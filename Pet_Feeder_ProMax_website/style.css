@@ -13,11 +13,15 @@ body {
 
 .frame {
   background: #F6F1DB; 
-  width: 90vw;       
-  height: 90vh;      
+  width: 90vw;
+  max-width: 900px;       
+  min-height: 90vh;      
   border-radius: 20px;
-  margin: auto;
+  margin: 60px auto 30px;
   box-shadow: 0 0 30px rgba(0, 0, 0, 0.25);
+  text-align: center;
+  padding: 20px 35px 30px;
+  box-sizing: border-box;
 }
 
 .container {
@@ -61,8 +65,6 @@ h1 {
   transition: 0.3s ease;
   display: block;
   margin: 0 auto 10px;
-
-
 }
 
 #feedBtn:active {
@@ -82,11 +84,8 @@ h1 {
 /* Schedule Setting ------------------------------ */
 .schedule-section {
   display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  gap: 14px;
+  gap: 15px;
   margin: 15px auto;
-  width: 80%;
 }
 
 .schedule-box {
@@ -130,7 +129,8 @@ h1 {
     margin: 0;
     font-size: 1.2rem;
 }
-/* ------------------*/
+
+/* ScheduleBtn Setting ------------------*/
 #openScheduleBtn {
     background: #1F3857;
     color: #fff;
@@ -147,7 +147,7 @@ h1 {
 #openScheduleBtn:hover {
   background: #2868bb;
 }
-/* ------------------*/
+
 #closeScheduleBtn {
     padding: 5px 9px;
     font-weight: bold;
@@ -161,7 +161,8 @@ h1 {
 #closeScheduleBtn:hover {
     background: #f33d3d;
 }
-/* ------------------*/
+
+/*------------------*/
 .add-row {
     height: 35px;
     display: flex;
@@ -243,89 +244,75 @@ h1 {
 
 /* line ------------------------------------------- */
 .schedule-divider {
-  width: 85%;
-  height: 4px;
+  width: 100%;
+  height: 10px;
   background: #6b92ac;
   border-radius: 2px;
-  margin: 10px auto 0;
-  margin-bottom: 0px ;
-  padding: 2px;
+  margin: 10px auto 16px;
 }
 
-/* TABLE-topic--------------------------------------- */
-
-
-.topic-table-section{
-  display: flex;              
+/* หัวสองฝั่ง */
+.topic-table-section {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   justify-content: space-between;
-  margin-bottom: -37px ;
-
-
-}
-.pet-header{
-  padding: 20px;
-  font-size: 20px;
-  padding-top: 0;
-  margin-bottom: 0px ;
-  background: #e5e0cc;
-}
-.pet-header2{
-  padding: 20px;
-  font-size: 20px;
-
-  padding-top: 0;
-  padding-bottom: 0;
-
-  margin-bottom: 0px ;
-
-  
+  align-items: center;
+  margin-bottom: 6px;
 }
 
-/* TABLE------------------------------------------- */
-
-.table-scroll {
-  max-height: 300px;  
-  overflow-y: auto; 
-  border-radius: 6px;
-  background: #fff;
-  box-shadow: inset 0 0 3px rgba(0,0,0,0.1);
+.pet-header {
+  font-size: 30px;
+  font-weight: bold;
+  color: #000;
 }
 
+/* โซนตาราง 2 ฝั่ง */
 .table-section {
-  display: flex;                 /* วางแนวนอน */
-  justify-content: space-between;
-  gap: 15px;                     /* ช่องว่างระหว่างสองกล่อง */
+  display: flex;
+  gap: 20px;
+  align-items: stretch;
 }
 
-/* กล่องแต่ละฝั่ง */
-.table-box {
-  flex: 1;                       /* ให้ทั้งสองกว้างเท่ากัน */
+/* ฝั่งซ้าย */
+.sensor-table {
+  flex: 1;
   background: #e5e0cc;
   border-radius: 6px;
   padding: 10px;
 }
 
-
-.table-box h2 {
-  text-align: center;
-  font-size: 16px;
-  margin-bottom: 10px;
+.pet-status {
+  font-style: italic;
+  font-weight: 600;
+  margin-bottom: 4px;
 }
 
+.status-detect-table {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 10px;
+  font-size: 15px;
+}
+
+.table-scroll {
+  max-height: 230px;
+  overflow-y: auto;
+  background: #ffffff;
+  border-radius: 6px;
+  box-shadow: inset 0 0 3px rgba(0,0,0,0.1);
+}
 
 table {
   width: 100%;
   border-collapse: collapse;
-  background: #ffffff;
-  border-radius: 6px;
-  overflow: hidden;
   font-size: 13px;
 }
 
 th {
   background: #669bbb;
-  color: white;
+  color: #fff;
   padding: 6px;
+  text-align: center;
 }
 
 td {
@@ -335,71 +322,10 @@ td {
 }
 
 tr:nth-child(odd) {
-  background-color: #fafafa;
+  background: #fafafa;
 }
 
-/*------------------- */
-
-.table-section {
-  display: flex;
-  justify-content: space-between;
-  gap: 15px;
-}
-
-/* ==== Pet Detection ===== */
-
-.sensor-table {
-  flex: 1;
-  border-radius: 6px;
-  padding: 10px;
-}
-
-.L-table {
-  flex: 1;
-  border-radius: 6px;
-  padding: 10px;
-}
-
-.sensor-table h2 {
-  text-align: center;
-  font-size: 16px;
-  font-weight: 700;
-  margin-bottom: 6px;
-}
-
-/* ตาราง Pet Detection */
-.sensor-Frame {
-  flex: 1;
-  border-radius: 6px;
-  padding: 10px;
-}
-
-.sensor-table table {
-  width: 100%;
-  border-collapse: collapse;
-  background: #ffffff;
-  border-radius: 6px;
-  font-size: 13px;
-  overflow: hidden;
-}
-
-.sensor-table th {
-  background: #669bbb;
-  color: #fff;
-  padding: 6px;
-}
-
-.sensor-table td {
-  padding: 6px;
-  text-align: center;
-  border-bottom: 1px solid #ddd;
-}
-
-.sensor-table tr:nth-child(odd) {
-  background-color: #fafafa;
-}
-
-/* ========== ตารางขวา (Feed History) ========== */
+/* ฝั่งขวา */
 .feed-table {
   flex: 1;
   background: #e5e0cc;
@@ -407,79 +333,162 @@ tr:nth-child(odd) {
   padding: 10px;
 }
 
-.feed-table h2 {
-  text-align: center;
-  font-size: 16px;
-  font-weight: 700;
-  margin-bottom: 8px;
-}
-
-/* สรุป feed summary ด้านบน */
-.feed-table .feed-summary {
-  display: flex;
-  justify-content: space-between;
+.feed-summary {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   align-items: center;
-  background: transparent;
-  padding: 5px 10px 10px;
-  margin-bottom: 8px;
+  padding-bottom: 6px;
 }
 
-/* ฝั่งซ้าย: จำนวนครั้ง */
-.feed-table .feed-count {
-  text-align: center;
-}
-.feed-table .feed-count .count {
+.feed-count .count {
   font-size: 48px;
   font-weight: 800;
   line-height: 1;
+  color: #000000;
   display: block;
-}
-.feed-table .feed-count .unit {
-  font-size: 14px;
-  font-weight: 600;
-  display: block;
-  margin-top: 2px;
 }
 
-/* ฝั่งขวา: น้ำหนักอาหาร */
-.feed-table .feed-amount {
-  text-align: center;
+.feed-count .unit {
+  font-size: 14px;
+  font-weight: 600;
 }
-.feed-table .feed-amount .weight {
+
+.feed-amount .weight {
   font-size: 32px;
   font-weight: 800;
   display: block;
-  line-height: 1;
 }
-.feed-table .feed-amount .remain {
+
+.feed-amount .remain {
   font-size: 14px;
   font-weight: 600;
-  display: block;
-  margin-top: 4px;
 }
 
-/* ตาราง Feed History */
-.feed-table table {
-  width: 100%;
-  border-collapse: collapse;
+/* =============== Modal =============== */
+.modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.4);
+}
+
+.modal.show {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-card {
+  width: 560px;
+  max-width: 92vw;
   background: #ffffff;
-  border-radius: 6px;
-  overflow: hidden;
-  font-size: 13px;
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: 0 10px 30px rgba(0,0,0,.2);
 }
 
-.feed-table th {
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+.modal-header h2 {
+  margin: 0;
+}
+
+#closeScheduleBtn {
+  padding: 5px 9px;
+  font-weight: bold;
+  background: #A32626;
+  font-size: 16px;
+  cursor: pointer;
+  border: none;
+  border-radius: 8px;
+  color: #fff;
+}
+#closeScheduleBtn:hover {
+  background: #f33d3d;
+}
+
+.add-row {
+  height: 35px;
+  display: flex;
+  gap: 8px;
+  margin: 12px 0;
+}
+.add-row input {
+  width: 100%;
+  font-size: 16px;
+}
+.add-row button {
+  padding: 6px 14px;
   background: #669bbb;
   color: white;
-  padding: 6px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.add-row button:hover{
+  background: #76b0d4;
+}
+.schedule-list {
+  list-style: none;
+  padding: 0;
+  margin: 8px 0 0;
+}
+.schedule-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border-bottom: 1px solid #eee;
+  padding: 6px 0;
+}
+.time-badge {
+  font-weight: 600;
+  min-width: 70px;
+}
+.trash {
+  margin-left: auto;
+  background: transparent;
+  border: none;
+  font-size: 18px;
+  color: #A32626;
+  display: none;
+  cursor: pointer;
+}
+.delete-mode .trash {
+  display: inline;
 }
 
-.feed-table td {
-  padding: 6px;
-  text-align: center;
-  border-bottom: 1px solid #ddd;
+.toolbar {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+}
+#deleteModeBtn {
+  background: #A32626;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 6px 14px;
+  cursor: pointer;
+}
+#saveScheduleBtn {
+  background: #417b45;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 6px 14px;
+  cursor: pointer;
 }
 
-.feed-table tr:nth-child(odd) {
-  background-color: #fafafa;
+/* responsive เล็กนิดนึง */
+@media (max-width: 820px) {
+  .table-section {
+    flex-direction: column;
+  }
+  .schedule-row {
+    width: 100%;
+  }
 }

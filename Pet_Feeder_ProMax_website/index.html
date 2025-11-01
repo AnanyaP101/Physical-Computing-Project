@@ -13,8 +13,6 @@
         </div>
     </h1>
 
-    <p>Physical-Computing Project</p>
-
     <!-- feed -->
     <button id="feedBtn">FEED</button>
     <p>Status: <span id="status">Connecting...</span></p>
@@ -48,79 +46,75 @@
         <div class="schedule-box"></div>
       </div>
       <!-- เส้น -->
-  <div class="schedule-divider"></div>
+    <div class="schedule-divider"></div>
 
-  <div class="topic-table-section">
-    <div class="pet-header">
-      <h2>Pet Detection</h2>
+    <div class="topic-table-section">
+      <div class="pet-header">
+        <span>Pet Detection</span>
+      </div>
+
+      <div class="pet-header">
+        <span>Feed History</span>
+      </div>
+      
     </div>
-
-    <div class="pet-header2">
-      <h2>Feed History</h2>
-    </div>
-    
-  </div>
- <!-- Table Component : รวม 2 table -->
-<div class="table-section">
-    
-  <!-- ซ้าย: Pet Detection -->
-  <div class="sensor-table">
-
-    <div class="L-table">
-          <p class="pet-status">“Your pet is here!”</p>
-          <div class="status-detect-table">
-            <p class="last-detect">Last detected : </p>
-            <p class="last-detect-val">in front of you</p>
+    <!-- Table Component : รวม 2 table -->
+    <div class="table-section">
+      
+      <!-- ซ้าย: Pet Detection -->
+      <div class="sensor-table">
+          <div class="L-table">
+            <p class="pet-status">“Your pet is here!”</p>
+              <div class="status-detect-table">
+                <p>Last detected : </p>
+                <p id="detected">No one here!</p>
+              </div>
           </div>
-    </div>
-<div class="table-scroll">
-    <table id="DetectionTable">
-      <thead>
-        <tr>
-          <th>Timestamp</th>
-          <th>Event</th>
-        </tr>
-      </thead>
-      <tbody id="DetectionTableBody"></tbody>
-    </table>
-</div>
-  </div>
-
-  <!-- ขวา: Feed History -->
-  <div class="feed-table">
-    <div class="feed-summary">
-      <div class="feed-count">
-        <span class="count">3</span>
-        <span class="unit">time/Day</span>
+        <div class="table-scroll">
+          <table id="DetectionTable">
+            <thead>
+              <tr>
+                <th>Timestamp</th>
+                <th>Event</th>
+              </tr>
+            </thead>
+            <tbody id="DetectionTableBody"></tbody>
+          </table>
+        </div>
       </div>
 
-      <div class="feed-amount">
-        <span class="weight">200 g</span>
-        <span class="remain">remain</span>
+      <!-- ขวา: Feed History -->
+      <div class="feed-table">
+        <div class="feed-summary">
+          <div class="feed-count">
+            <span class="count">3</span>
+            <span class="unit">time/Day</span>
+          </div>
+
+          <div class="feed-amount">
+            <span id="amount" class="weight">200 g</span>
+            <span class="remain">remain</span>
+          </div>
+        </div>
+        <div class="table-scroll">
+          <table id="feedTable">
+            <thead>
+              <tr>
+                <th>Timestamp</th>
+                <th>Event</th>
+              </tr>
+            </thead>
+            <tbody id="feedTableBody"></tbody>
+          </table>
+        </div>
       </div>
     </div>
-<div class="table-scroll">
-    <table id="feedTable">
-      <thead>
-        <tr>
-          <th>Timestamp</th>
-          <th>Event</th>
-        </tr>
-      </thead>
-      <tbody id="feedTableBody"></tbody>
-    </table>
-    </div>
-  </div>
-
-</div>
-
-    </div>
   </div>
 
 
-    <!-- โหลดเว็ปก่อนค่อยโหลด script -->
-    <script src="https://unpkg.com/mqtt/dist/mqtt.min.js"></script>
-    <script type="module" src="mqtt.js"></script>  <!-- Firebase : ใส่ type="module" -->
+  <!-- โหลดเว็ปก่อนค่อยโหลด script -->
+  <script src="https://unpkg.com/mqtt/dist/mqtt.min.js"></script>
+  <script type="module" src="mqtt.js"></script>  <!-- Firebase : ใส่ type="module" -->
 
 </div>
 </body>
