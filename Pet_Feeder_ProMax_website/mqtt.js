@@ -74,22 +74,48 @@ client.on("error", (err) => {
     clearFeedTimer();
 });
 
-client.on("message", (topic, message) => {
-    
-    if (topic !== SUBSCRIBE_TOPIC) return;
-    
-    const msg = message.toString();
-    statusText.textContent = msg;
-    
-    feedBtn.disabled = false;
-    clearFeedTimer();
+// ----------------message----------------------------------
 
-    // ส่งไป Firebase
-    var d = new Date();
-    const localTime = d.toLocaleString("en-GB", { timeZone: "Asia/Bangkok" }).replace(",", "").replace(/\//g, "-");
-    set(ref(db, `logs/feed/${localTime}`), {
-        message: msg,
+client.on("message", (topic, message) => {
+  if (topic !== SUBSCRIBE_TOPIC) return;
+
+  const msg = message.toString().trim();
+  console.log("Received:", msg);
+  statusText.textContent = msg;
+  feedBtn.disabled = false;
+  clearFeedTimer();
+
+  // สร้าง timestamp เวลาไทย
+  const d = new Date();
+  const localTime = d.toLocaleString("en-GB", { timeZone: "Asia/Bangkok" })
+                    .replace(",", "")
+                    .replace(/\//g, "-")
+                    .replace(" ", "_"); // กัน key ซ้ำใน Firebase
+
+// Condition detected ------------------------------
+  if (msg.toLowerCase().includes("detected")) {
+
+    set(ref(db, `logs/sensor/${localTime}`), {
+      event: msg
     });
+
+    // แสดงผลในตาราง Pet Detection ------------------------------
+    addRowToTable("DetectionTableBody", localTime, msg);
+
+  } else if (msg.toLowerCase().includes("feed(manual)")) {
+
+// Condition feeding done ------------------------------
+    set(ref(db, `logs/feed/${localTime}`), {
+      event: msg
+    });
+
+    // แสดงผลในตาราง Feed History ------------------------------
+    addRowToTable("feedTableBody", localTime, msg);
+
+  } else {
+    // ---------- กรณีข้อความอื่น ----------
+    console.warn("Unknown message:", msg);
+  }
 });
 
 
@@ -116,7 +142,7 @@ feedBtn.addEventListener("click", () => {
     var d = new Date();
     const localTime = d.toLocaleString("en-GB", { timeZone: "Asia/Bangkok" }).replace(",", "").replace(/\//g, "-");
     // console.log(localTime);
-    set(ref(db, `logs/feed/${localTime}`), {
+    set(ref(db, `logs/feed_click/${localTime}`), {
         event: "feed"
     });
 });
@@ -135,13 +161,14 @@ function sortByTime(a, b) {
 }
 
 
-// <<-----เพิ่ม Table------>> 
+// <<----- เพิ่ม Table (Feed + Detection) ------>> 
 import { onValue } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-database.js";
 
 const feedTableBody = document.getElementById("feedTableBody");
+const DetectionTableBody = document.getElementById("DetectionTableBody");
 
-// ฟังก์ชันเพิ่มข้อมูล 1 แถว
-function addRow(timestamp, data) {
+/* ---------- ฟังก์ชันเพิ่มข้อมูลในตาราง ---------- */
+function addRowToTable(tbody, timestamp, data) {
   const row = document.createElement("tr");
   const timeCell = document.createElement("td");
   const msgCell = document.createElement("td");
@@ -152,26 +179,41 @@ function addRow(timestamp, data) {
   row.appendChild(timeCell);
   row.appendChild(msgCell);
 
-  // แทรกข้อมูลใหม่ไว้ "ด้านบนสุด" ของตาราง
-  feedTableBody.insertBefore(row, feedTableBody.firstChild);
+  // แทรกข้อมูลใหม่ไว้บนสุด
+  tbody.insertBefore(row, tbody.firstChild);
 }
 
-// ดึงข้อมูลจาก Firebase แบบเรียลไทม์
-const logsRef = ref(db, "logs/feed");
+/* ---------- ดึงข้อมูลจาก Firebase แบบเรียลไทม์ ---------- */
 
-onValue(logsRef, (snapshot) => {
+// ตาราง Feed History
+const feedRef = ref(db, "logs/feed");
+onValue(feedRef, (snapshot) => {
   const data = snapshot.val();
   feedTableBody.innerHTML = "";
   if (!data) return;
 
-  // เรียงจากใหม่ → เก่า (ล่าสุดอยู่บนสุด)
+  // เรียงใหม่ → เก่า
   const entries = Object.entries(data).sort((a, b) => new Date(b[0]) - new Date(a[0]));
-
   entries.forEach(([timestamp, item]) => {
-    addRow(timestamp, item);
+    addRowToTable(feedTableBody, timestamp, item);
   });
 });
-//----------------------------------
+
+// ตาราง Pet Detection
+const sensorRef = ref(db, "logs/sensor");
+onValue(sensorRef, (snapshot) => {
+  const data = snapshot.val();
+  DetectionTableBody.innerHTML = "";
+  if (!data) return;
+
+  // เรียงใหม่ → เก่า
+  const entries = Object.entries(data).sort((a, b) => new Date(b[0]) - new Date(a[0]));
+  entries.forEach(([timestamp, item]) => {
+    addRowToTable(DetectionTableBody, timestamp, item);
+  });
+});
+
+//-----------------------------------------------------------
 
 function renderSchedule() {
     scheduleItems.sort(sortByTime); // sort ก่อน render
