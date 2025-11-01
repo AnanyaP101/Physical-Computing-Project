@@ -1,7 +1,6 @@
 # Pet Feeder Pro Max
-Physical-Computing-Project
-- โครงงานนี้พัฒนาเครื่องให้อาหารสัตว์เลี้ยงอัตโนมัติด้วย ESP32 เชื่อมต่อ Wi-Fi ควบคุมการเปิด/ปิดผ่าน servo 
-ผู้ใช้สามารถควบคุมผ่านเว็บไซต์และ ตั้งเวลาให้อาหาร ได้ตามต้องการ อุปกรณ์มี Sensor ตรวจจับการเคลื่อนไหวสัตว์เลี้ยง เพิ่มความสะดวกและช่วยให้สัตว์เลี้ยงได้รับอาหารตรงเวลา
+โครงงาน Pet Feeder PRO MAX เป็นเครื่องให้อาหารสัตว์อัตโนมัติที่สามารถควบคุมได้จากทุกที่ผ่านเว็บไซต์ โดยใช้บอร์ด Arduino UNO R4 wifi เชื่อมต่อ MQTT Cloud สำหรับรับ–ส่งคำสั่ง และจัดเก็บข้อมูลผ่าน Firebase Database อุปกรณ์มี Ultrasonic Sensor ตรวจจับการปรากฏตัวของสัตว์เลี้ยง พร้อมบันทึกเวลาและแจ้งเตือนบนเว็บ ผู้ใช้สามารถสั่งให้อาหารทันทีหรือตั้งเวลาได้ โดยการเปิด–ปิดอาหารควบคุมด้วย Servo Motor ระบบนี้ช่วยให้เจ้าของดูแลสัตว์เลี้ยงได้สะดวกและเป็นระบบมากขึ้น
+- Physical-Computing-Project
 
 # Overview
 จุดประสงค์
@@ -12,16 +11,16 @@ Physical-Computing-Project
 5. เพื่อออกแบบระบบที่ปลอดภัย ใช้งานง่าย และสามารถต่อยอดพัฒนาได้ในอนาคต
 
 รายละเอียดของโครงการ
-ชื่อโครงการ: Pet Feeder PRO MAX
-ประเภทโครงงาน: Physical Computing / Internet of Things (IoT)
-Microcontroller : Arduino UNO R4 WiFi
-ระบบสื่อสาร: MQTT Cloud (ใช้สำหรับรับ–ส่งข้อความระหว่างตัวอุปกรณ์กับเว็บไซต์)
-Database : Firebase Realtime Database (จัดเก็บประวัติการให้อาหารและเวลาการตรวจจับสัตว์เลี้ยง)
-Website : ใช้แสดงสถานะการให้อาหาร, ตรวจจับการเคลื่อนไหว และสั่งงานอุปกรณ์
-อุปกรณ์หลัก: Ultrasonic Sensor, Servo Motor MG90S, Arduino UNO R4 WiFi
-ซอฟต์แวร์พัฒนา: Arduino IDE, Visual Studio Code, GitHub
+- ชื่อโครงการ: Pet Feeder PRO MAX
+- ประเภทโครงงาน: Physical Computing / Internet of Things (IoT)
+- Microcontroller : Arduino UNO R4 WiFi
+- ระบบสื่อสาร: MQTT Cloud (ใช้สำหรับรับ–ส่งข้อความระหว่างตัวอุปกรณ์กับเว็บไซต์)
+- Database : Firebase Realtime Database (จัดเก็บประวัติการให้อาหารและเวลาการตรวจจับสัตว์เลี้ยง)
+- Website : ใช้แสดงสถานะการให้อาหาร, ตรวจจับการเคลื่อนไหว และสั่งงานอุปกรณ์
+- อุปกรณ์หลัก: Ultrasonic Sensor, Servo Motor MG90S, Arduino UNO R4 WiFi
+- ซอฟต์แวร์พัฒนา: Arduino IDE, Visual Studio Code, GitHub
 
- Arduino  <-->  รับ/ส่งข้อมูลผ่าน MQTT  <-->  แสดงผลบนเว็บไซต์  <-->  เก็บข้อมูลใน Firebase
+- Arduino  <-->  รับ/ส่งข้อมูลผ่าน MQTT  <-->  แสดงผลบนเว็บไซต์  <-->  เก็บข้อมูลใน Firebase
 
 
 
