@@ -303,12 +303,12 @@ font-family: "Roboto", sans-serif;
   background: #e5e0cc;
   border-radius: 10px;
   padding: 15px 20px;
-  width: 100%;   
+  width: 100%;  
+  align-items: center;
   max-width: 380px;        
   min-height: 340px;
-  display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: flex-start; 
   box-shadow: 0 3px 6px rgba(0,0,0,0.2);
   box-sizing: border-box;
 }
@@ -340,7 +340,7 @@ table {
 }
 
 th {
-  background: #355d78;
+  background: #537a94;
   color: #fff;
   padding: 6px;
   text-align: center;
