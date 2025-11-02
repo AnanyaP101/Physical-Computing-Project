@@ -106,7 +106,7 @@ client.on("message", (topic, message) => {
                     .replace(",", "")
                     .replace(/\//g, "-") // กัน key ซ้ำใน Firebase
 
-  const address = `logs/feed/${localTime}`;
+  let address = `logs/feed/${localTime}`;
   let text = "Feed";
   if(msg == "feed_auto") {
       text = "Feed (auto)";
@@ -199,7 +199,7 @@ onValue(feedRef, (snapshot) => {
   if (!data) return;
 
   // เรียงใหม่ → เก่า
-  const entries = Object.entries(data).sort((a, b) => new Date(b[0]) - new Date(a[0]));
+  const entries = Object.entries(data).sort((a, b) => new Date(a[0]) - new Date(b[0]));
   entries.forEach(([timestamp, item]) => {
     addRowToTable(feedTableBody, timestamp, item);
   });
@@ -212,7 +212,7 @@ onValue(sensorRef, (snapshot) => {
   if (!data) return;
 
   // เรียงใหม่ → เก่า
-  const entries = Object.entries(data).sort((a, b) => new Date(b[0]) - new Date(a[0]));
+  const entries = Object.entries(data).sort((a, b) => new Date(a[0]) - new Date(b[0]));
   entries.forEach(([timestamp, item]) => {
     addRowToTable(DetectionTableBody, timestamp, item);
   });
