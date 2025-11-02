@@ -15,7 +15,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 
-const FEED_TIMEOUT = 10000;
+const FEED_TIMEOUT = 20000;
 
 // Mqtt settings
 const host = "0b6280fa49a549c58dab95e2bb422274.s1.eu.hivemq.cloud";
@@ -88,7 +88,8 @@ client.on("message", (topic, message) => {
   if (topic != SUBSCRIBE_TOPIC) return;
 
   const msg = message.toString();
-  if (msg == "Feeding Done") {
+  console.log(msg);
+  if (msg == "feed_auto" || msg == "feed_manual") {
       statusText.textContent = "Feeding Done";
       if(amountLeft >= amountPerFeed) {
           amountLeft -= amountPerFeed;
@@ -106,7 +107,7 @@ client.on("message", (topic, message) => {
                     .replace(/\//g, "-") // กัน key ซ้ำใน Firebase
 
   const address = `logs/feed/${localTime}`;
-  const text = "feed";
+  let text = "Feed";
   if(msg == "feed_auto") {
       text = "Feed (auto)";
   } else if(msg == "feed_manual") {

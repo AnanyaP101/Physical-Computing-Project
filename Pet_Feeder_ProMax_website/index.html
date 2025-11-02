@@ -6,7 +6,11 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+
   <div class="frame">
+    <div class="top-banner">
+      <span class="left-text">Project Physical Computing 2025</span>
+</div>
     <h1>
       <div class="logo">
           <img src="asset/Logo.svg" alt="Pet Feeder Logo"  width="300" height="200">
@@ -14,7 +18,10 @@
     </h1>
 
     <!-- feed -->
-    <button id="feedBtn">FEED</button>
+
+    <div class="feed-btn-container">
+  <button id="feedBtn">FEED</button>
+    </div>
     <p>Status: <span id="status">Connecting...</span></p>
 
     <!-- schedule -->
@@ -48,68 +55,60 @@
       <!-- เส้น -->
     <div class="schedule-divider"></div>
 
-    <div class="topic-table-section">
-      <div class="pet-header">
-        <span>Pet Detection</span>
-      </div>
+   <div class="table-section">
+  <!-- ฝั่งซ้าย: Pet Detection -->
+  <div class="pet-header">
+    <span>Pet Detection</span>
 
-      <div class="pet-header">
-        <span>Feed History</span>
+    <div class="sensor-table">
+      <p class="pet-status">“Your pet is here!”</p>
+      <div class="status-detect-table">
+        <p>Last detected:</p>
+        <p id="detected">No one here!</p>
       </div>
-      
-    </div>
-    <!-- Table Component : รวม 2 table -->
-    <div class="table-section">
-      
-      <!-- ซ้าย: Pet Detection -->
-      <div class="sensor-table">
-          <div class="L-table">
-            <p class="pet-status">“Your pet is here!”</p>
-              <div class="status-detect-table">
-                <p>Last detected : </p>
-                <p id="detected">No one here!</p>
-              </div>
-          </div>
-        <div class="table-scroll">
-          <table id="DetectionTable">
-            <thead>
-              <tr>
-                <th>Timestamp</th>
-                <th>Event</th>
-              </tr>
-            </thead>
-            <tbody id="DetectionTableBody"></tbody>
-          </table>
-        </div>
-      </div>
-
-      <!-- ขวา: Feed History -->
-      <div class="feed-table">
-        <div class="feed-summary">
-          <div class="feed-count">
-            <span class="count">3</span>
-            <span class="unit">time/Day</span>
-          </div>
-
-          <div class="feed-amount">
-            <span id="amount" class="weight">200 g</span>
-            <span class="remain">remain</span>
-          </div>
-        </div>
-        <div class="table-scroll">
-          <table id="feedTable">
-            <thead>
-              <tr>
-                <th>Timestamp</th>
-                <th>Event</th>
-              </tr>
-            </thead>
-            <tbody id="feedTableBody"></tbody>
-          </table>
-        </div>
+      <div class="table-scroll">
+        <table id="DetectionTable">
+          <thead>
+            <tr>
+              <th>Timestamp</th>
+              <th>Event</th>
+            </tr>
+          </thead>
+          <tbody id="DetectionTableBody"></tbody>
+        </table>
       </div>
     </div>
   </div>
+
+  <!-- ฝั่งขวา: Feed History -->
+  <div class="pet-header">
+    <span>Feed History</span>
+
+    <div class="feed-table">
+      <div class="feed-summary">
+        <div class="feed-count">
+          <span class="count">3</span>
+          <span class="unit">time/Day</span>
+        </div>
+        <div class="feed-amount">
+          <span id="amount" class="weight">200 g</span>
+          <span class="remain">remain</span>
+        </div>
+      </div>
+      <div class="table-scroll">
+        <table id="feedTable">
+          <thead>
+            <tr>
+              <th>Timestamp</th>
+              <th>Event</th>
+            </tr>
+          </thead>
+          <tbody id="feedTableBody"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
 
 
   <!-- โหลดเว็ปก่อนค่อยโหลด script -->
