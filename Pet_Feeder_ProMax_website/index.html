@@ -26,31 +26,35 @@
     <!-- schedule -->
     <div class="schedule-section">
       
-      <button id="openScheduleBtn">Schedule</button>
-        <div id="schedule" class="modal" aria-hidden="true">
-          <div class="modal-card">
-            <div class="modal-header">
-              <h2>Feeding Schedule</h2>
-              <button id="closeScheduleBtn" aria-label="close">✕</button>
-            </div>
+      <div id="schedule" class="modal" aria-hidden="true">
+        <div class="modal-card">
+          <div class="modal-header">
+            <h2>Feeding Schedule</h2>
+            <button id="closeScheduleBtn" aria-label="close">✕</button>
+          </div>
 
-            <ul id="scheduleList" class="schedule-list"></ul>
+          <ul id="scheduleList" class="schedule-list"></ul>
 
-            <div class="add-row">
-              <input type="time" id="timeInput">
-              <div>
-                <button id="addTimeBtn">Add</button>
-              </div>
-            </div>
-              
-            <div class="toolbar">
-              <button id="deleteModeBtn">Delete</button>
-              <button id="saveScheduleBtn">Save</button>
+          <div class="add-row">
+            <input type="time" id="timeInput">
+            <div>
+              <button id="addTimeBtn">Add</button>
             </div>
           </div>
+
+          <div class="toolbar">
+            <button id="deleteModeBtn">Delete</button>
+            <button id="saveScheduleBtn">Save</button>
+          </div>
         </div>
-        <div class="schedule-box"></div>
       </div>
+
+      <div class="schedule-box">
+        <button id="openScheduleBtn">Schedule</button>
+            <div class="quote-bar" id="quoteBar"></div>
+      </div>
+
+    </div>
       <!-- เส้น -->
     <div class="schedule-divider"></div>
 
@@ -60,10 +64,10 @@
     <span>Pet Detection</span>
 
     <div class="sensor-table">
-      <p class="pet-status">“Your pet is here!”</p>
+      <p id="petStatus" class="pet-status">“Your pet is here!”</p>
       <div class="status-detect-table">
         <p>Last detected:</p>
-        <p id="detected">No one here!</p>
+        <p id="detected">None</p>
       </div>
       <div class="table-scroll">
         <table id="DetectionTable">
@@ -86,12 +90,13 @@
     <div class="feed-table">
       <div class="feed-summary">
         <div class="feed-count">
-          <span class="count">3</span>
+          <span id="countPerDay" class="count"></span>
           <span class="unit">time/Day</span>
         </div>
         <div class="feed-amount">
-          <span id="amount" class="weight">200 g</span>
+          <span id="amount" class="weight"></span>
           <span class="remain">remain</span>
+          <button id="resetRemainBtn">🔁</button>
         </div>
       </div>
       <div class="table-scroll">

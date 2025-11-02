@@ -48,14 +48,18 @@ const trashSymbol = "🗑";
 
 const amountText = document.getElementById("amount");
 const detectText = document.getElementById("detected");
+const petStatusText = document.getElementById("petStatus");
+const countText = document.getElementById("countPerDay");
+const resetRemainBtn = document.getElementById("resetRemainBtn");
 
 let scheduleItems = [];
 let deleteMode = false;
 
 let feed_timer = null;
 
-const amountPerFeed = 200; // ให้ทีละเท่าไหร่
-let amountLeft = 1000;
+const maxAmount = 1000;
+const amountPerFeed = 100; // ให้ทีละเท่าไหร่
+let amountLeft = maxAmount;
 
 const feedRef = ref(db, "logs/feed");
 const sensorRef = ref(db, "logs/sensor");
@@ -70,14 +74,14 @@ function clearFeedTimer() {
 
 client.on("connect", () => {
     console.log("Connected to HiveMQ");
-    statusText.textContent = "Connected ✅ ";
+    statusText.textContent = "Connected";
     client.subscribe(SUBSCRIBE_TOPIC);
     feedBtn.disabled = false;
 });
 
 client.on("error", (err) => {
     console.error("MQTT Error:", err);
-    statusText.textContent = "Connection Error X";
+    statusText.textContent = "Connection Error";
     feedBtn.disabled = true;
     clearFeedTimer();
 });
@@ -85,51 +89,70 @@ client.on("error", (err) => {
 // ----------------message----------------------------------
 
 client.on("message", (topic, message) => {
-  if (topic != SUBSCRIBE_TOPIC) return;
+    if (topic != SUBSCRIBE_TOPIC) return;
 
-  const msg = message.toString();
-  console.log(msg);
-  if (msg == "feed_auto" || msg == "feed_manual") {
-      statusText.textContent = "Feeding Done";
-      if(amountLeft >= amountPerFeed) {
-          amountLeft -= amountPerFeed;
-          amountText.textContent = amountLeft + " g";
-      }
-  }
-  
-  feedBtn.disabled = false;
-  clearFeedTimer();
+    const msg = message.toString();
+    console.log(msg);
+    if (msg == "feed_auto" || msg == "feed_manual") {
+        statusText.textContent = "Feeding Done";
+        if(amountLeft >= amountPerFeed) {
+            amountLeft -= amountPerFeed;
+            amountText.textContent = amountLeft + " g";
+        }
+    }
+    
+    feedBtn.disabled = false;
+    clearFeedTimer();
 
-  // สร้าง timestamp เวลาไทย
-  var d = new Date();
-  const localTime = d.toLocaleString("en-GB", { timeZone: "Asia/Bangkok" })
+    // สร้าง timestamp เวลาไทย
+    var d = new Date();
+    const localTime = d.toLocaleString("en-GB", { timeZone: "Asia/Bangkok" })
                     .replace(",", "")
                     .replace(/\//g, "-") // กัน key ซ้ำใน Firebase
 
-  let address = `logs/feed/${localTime}`;
-  let text = "Feed";
-  if(msg == "feed_auto") {
-      text = "Feed (auto)";
-  } else if(msg == "feed_manual") {
-      text = "Feed (manual)"
-  } else if(msg == "Cat !!") {
-      address = `logs/sensor/${localTime}`;
-      text = "Cat Detected!";
-      detectText.textContent = "In front of you!";
+    let address = `logs/feed/${localTime}`;
+    let text = "Feed";
+    if(msg == "feed_auto") {
+        text = "Feed (auto)";
+    } else if(msg == "feed_manual") {
+        text = "Feed (manual)"
+    } else if(msg == "Cat !!") {
+        address = `logs/sensor/${localTime}`;
+        text = "Cat Detected!";
+        petStatusText.textContent = "Your pet is here!";
+        detectText.textContent = "In front of you!";
 
-      setTimeout(async () => {
-          const snap = await get(sensorRef);
-          const data = snap.val();
-          const entries = Object.entries(data).sort((a, b) => new Date(b[0]) - new Date(a[0]));
-          const [lastFeedTime] = entries[0].split(" ")[0];
-          detectText.textContent = lastFeedTime;
-      }, 600000); // รอ 10 นาที
-  }
 
-  // ส่งไป Firebase
-  set(ref(db, address), {
-      event: text
-  });
+        setTimeout(async () => {
+            try {
+                const snap = await get(sensorRef);
+                const data = snap.val();
+                if (!data) return;
+
+                const entries = Object.entries(data).sort((a, b) => new Date(b[0]) - new Date(a[0]));
+                const [lastKey] = entries[0]; // เอา timestamp ล่าสุด
+                const lastFeedTime = lastKey.split(" ")[1];
+
+                // ตรวจว่าผ่านไป 2 นาทีแล้วยังไม่มี sensor ใหม่หรือไม่
+                const lastTime = new Date(lastKey).getTime();
+                const now = Date.now();
+                const diffMs = now - lastTime;
+                const diffMin = diffMs / 60000; // แปลงเป็นนาที
+
+                if (diffMin >= 2) {
+                    petStatusText.textContent = "No one here!";
+                    detectText.textContent = lastFeedTime;
+                }
+            } catch (err) {
+                console.error("Error checking last detection:", err);
+            }
+        }, 120000); // รอ 2 นาที
+    }
+
+    // ส่งไป Firebase
+    set(ref(db, address), {
+        event: text
+    });
 });
 
 
@@ -191,13 +214,23 @@ function addRowToTable(tbody, timestamp, data) {
 }
 
 /* ---------- ดึงข้อมูลจาก Firebase แบบเรียลไทม์ ---------- */
-
 // ตาราง Feed History
 onValue(feedRef, (snapshot) => {
   const data = snapshot.val();
   feedTableBody.innerHTML = "";
   if (!data) return;
 
+  const today = new Date().toLocaleString("en-GB", { timeZone: "Asia/Bangkok" })
+                    .replace(",", "")
+                    .replace(/\//g, "-").split(" ")[0];
+  let count = 0;
+  Object.keys(data).forEach(date => { // นับครั้งที่ให้อาหาร ในวันเดียวกัน
+    if (date.split(" ")[0] === today) count++;
+  });
+
+  countText.textContent = count;
+
+  amountText.textContent = amountLeft + " g";
   // เรียงใหม่ → เก่า
   const entries = Object.entries(data).sort((a, b) => new Date(a[0]) - new Date(b[0]));
   entries.forEach(([timestamp, item]) => {
@@ -300,5 +333,27 @@ function updateSchedule() {
   client.publish(PUBLISH_TOPIC, "updateSchedule")
 }
 
+resetRemainBtn.addEventListener("click", () => {
+    amountLeft = maxAmount;
+    amountText.textContent = amountLeft + " g";
+});
 
+const quotes = [
+  "โดนแดดเธอจะร้อน ถ้าโดนแมวอ้อนละเธอจะรัก",
+  "อาหารแมวต้องวิสกัส อาหารรักต้อง with me",
+  "อยู่ใกล้แมวระวังแพ้ขน อยู่ใกล้ผมระวังแพ้ใจ",
+  "ลืมอะไรก็ลืมได้ แต่จะลืมให้อาหารแมวไม่ได้",
+  "มีแมวต้องมีโอ แต่ถ้าอยากหัวใจพองโตต้องมีเรา",
+  "สวัสดีวันจันทร์ 🌻",
+  "ขอให้วันนี้มีเรื่องดีๆเกิดขึ้นนะ",
+  "สัตว์เลี้ยงแสนน่ารักคุณอยู่ !",
+  "ซื้อของเล่นให้เป็นแสน แม้แต่แขนยังไม่ได้จับ"
+];
+
+function showRandomQuote() {
+  const randomIndex = Math.floor(Math.random() * quotes.length);
+  quoteBar.textContent = quotes[randomIndex];
+}
+
+window.addEventListener("load", showRandomQuote);
 renderSchedule();

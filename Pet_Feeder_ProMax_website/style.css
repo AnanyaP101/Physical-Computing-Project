@@ -1,7 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Belanosima:wght@400;600;700&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Belanosima:wght@400;600;700&family=Bigshot+One&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
 
-
 body {
   background: #660000;
   font-family: "Belanosima", sans-serif;
@@ -20,6 +19,18 @@ body {
   color: #fefaf2;
   font-size: 17px;
   margin-top: -50px;
+  box-sizing: border-box;
+}
+
+.foot-banner{
+  display: flex;
+  justify-content: center;
+
+  padding: 4px 12px 0 0; 
+  height: 28px;
+  color: #F6F1DB;
+  font-size: 17px;
+  margin-top: -20px;
   box-sizing: border-box;
 }
 
@@ -102,16 +113,30 @@ h1 {
 /* Schedule Setting ------------------------------ */
 .schedule-section {
   display: flex;
+  width: 80%;
   gap: 15px;
   margin: 15px auto;
 }
 
 .schedule-box {
+   display: flex;
   flex: 1;
   height: 30px;
   background: #d8d8d8;
   border-radius: 3px;
   box-shadow: inset 1px 1px 3px rgba(0,0,0,0.1);
+}
+
+.quote-bar{
+    font-family: "roboto", sans-serif;
+  font-weight: 800;
+  font-size: 17px;
+  flex: 1;
+  height: 30px;
+  background: #d8d8d8;
+  border-radius: 3px;
+  margin-right: 75px;
+
 }
 
 .modal {
